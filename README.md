@@ -133,3 +133,39 @@ login(formName) {
       });
     }
 ```
+
+## 首页结构
+我采用 header 导航栏固定 , 左侧菜单栏固定 , 中间组件切换的布局
+
+```vue
+<template>
+  <div class="box">
+    <HeaderBar></HeaderBar>
+    <div class="container">
+      <SideMenu></SideMenu>
+      <div class="container-right">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="scss">
+.box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background:#f0f2f5;
+  .container {
+    flex: 1;
+    display: flex;
+    height: calc(100% - 64px);
+    .container-right{
+      flex: 1;
+      margin: 20px;
+      background:#fff;    
+      width: calc(100% - 290px);
+    }
+  }
+}
+</style>
+```
