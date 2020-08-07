@@ -234,6 +234,8 @@ sliderSpeed() {
 
 ### 文件上传
 
+![Image text](https://github.com/zero0011/puzzle_look/blob/master/static/img/upload.png)
+
 ```html
 <!-- 上传的html -->
 <el-upload
