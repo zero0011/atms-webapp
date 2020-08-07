@@ -184,12 +184,12 @@ login(formName) {
 
 **请求接口**
 ```js
+// url 是 视频流地址
 playPack({ packId: rowData.id }).then((res) => {
     if (res.state === 1000) {
         this.url = res.data.path
     }
 })
-// url 是 视频流地址
 ```
 
 **视频进度条html**
@@ -202,17 +202,18 @@ playPack({ packId: rowData.id }).then((res) => {
 ```
 **视频脚本**
 ```js
+// 监听 url 变化
 watch : {
     url(val) {
       this.packUrl = val
       this.sliderSpeed()
     }
 }
-
-// 监听 url 变化
 ```
 
 ```js
+// 对应的进度条的变化
+
 sliderSpeed() {
     let _this = this
     if(_this.timer&&this.count===2){
@@ -229,7 +230,55 @@ sliderSpeed() {
     }, 50)
 }
 
-// 对应的进度条的变化
 ```
 
 ### 文件上传
+
+```html
+<!-- 上传的html -->
+<el-upload
+    class="upload-demo"
+    :action="url"
+    :show-file-list="false"
+    accept=".json"
+    :before-upload="beforeUploadFile"
+    :on-success="uploadSuccess"
+    :data="upLoadText"
+    :headers="importHeaders"
+  >
+  <el-button type="primary" @click="upLoadFile()">json文件导入</el-button>
+</el-upload>
+```
+
+```js
+// 验证文件类型和文件大小
+beforeUploadFile(file) {
+  this.fileName = file.name.slice(0, file.name.lastIndexOf('.'))
+  const fileSize = file.size / 1024 / 1024 < 3
+  const fileType = file.type === 'application/json'
+  if (!fileSize) {
+    this.$message.error('上传文件大小不能超过3MB!')
+  }
+  if (!fileType) {
+    this.$message.error('上传文件只能json')
+  }
+  return fileSize && fileType
+}
+
+// 导入前增加用户名参数
+
+upLoadFile() {
+  this.upLoadText = {
+    accountName: sessionStorage.getItem('userAccount')
+  }
+}
+
+
+// 上传前增加 token 头部,验证用户信息
+
+created() {
+  this.importHeaders={token:sessionStorage.getItem('token')}
+}
+
+```
+
