@@ -171,3 +171,65 @@ login(formName) {
 }
 </style>
 ```
+
+## 项目难点
+
+### 视频播放
+![Image text](https://github.com/zero0011/puzzle_look/blob/master/static/img/video.png)
+基本功能
+- 视频显示
+- 播放 
+- 暂停 
+- 进度条
+
+**请求接口**
+```js
+playPack({ packId: rowData.id }).then((res) => {
+    if (res.state === 1000) {
+        this.url = res.data.path
+    }
+})
+// url 是 视频流地址
+```
+
+**视频进度条html**
+```html
+<img :src="packUrl" />
+<vue-slider v-model="value" @drag-end="change()" ref="slider" drag-on-click/>
+
+// packUrl 视频地址
+// vue-slide 是视频进度条
+```
+**视频脚本**
+```js
+watch : {
+    url(val) {
+      this.packUrl = val
+      this.sliderSpeed()
+    }
+}
+
+// 监听 url 变化
+```
+
+```js
+sliderSpeed() {
+    let _this = this
+    if(_this.timer&&this.count===2){
+    this.value=0
+    clearInterval(this.timer)
+    }
+    const speed = (100 / (_this.frameNumber /(_this.count*25))) / 20
+    _this.timer = setInterval(() => {    
+    _this.value += speed
+    if (_this.value >= 100) {
+        clearInterval(_this.timer)
+        _this.value = 0
+    }
+    }, 50)
+}
+
+// 对应的进度条的变化
+```
+
+### 文件上传
