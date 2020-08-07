@@ -1,7 +1,7 @@
 # atms-webapp
 
 # 展示
-
+![Image text](https://github.com/zero0011/puzzle_look/blob/master/static/img/login.png)
 
 # 介绍
 这是一个后台管理系统平台
@@ -136,6 +136,8 @@ login(formName) {
 
 ## 首页结构
 我采用 header 导航栏固定 , 左侧菜单栏固定 , 中间组件切换的布局
+
+![Image text](https://github.com/zero0011/puzzle_look/blob/master/static/img/main.png)
 
 ```vue
 <template>
