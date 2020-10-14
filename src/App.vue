@@ -1,6 +1,7 @@
 <template>
   <div class="App">
-    hello world
+    hello world 
+    小玟玟
     <router-view />
   </div>
 </template>
